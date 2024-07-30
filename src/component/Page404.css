@@ -26,22 +26,23 @@
   justify-content: center;
 }
 
-.text-field-1 {
+.page404-field {
   border: none;
-  padding: 10px 250px 10px 7px;
+  padding: 10px 100px 10px 5px;
   border: 2px solid rgb(8, 27, 82);
   border-radius: 10px;
-  position: absolute;
   outline: none;
   margin-top: 10px;
-
+  align-items: center;
+  position: relative;
 }
 
-.search-icon {
+.page404-search-icon {
+  cursor: pointer;
   position: relative;
-  color: black;
-  margin-left: 400px;
-  margin-top: 20px;
+  left: 120px;
+  transform: translateY(-100%);
+  top: -8px;
 }
 
 .page404-img img {
@@ -59,7 +60,7 @@
   text-align: center;
 }
 
-.btn {
+/* .btn {
   background-color: rgb(58, 58, 173);
   border: none;
   padding: 10px 25px;
@@ -67,7 +68,7 @@
   color: white;
   margin-left: 10px;
   cursor: pointer;
-}
+} */
 
 @media screen and (max-width: 425px) {
   .page404-not {

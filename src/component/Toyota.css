@@ -1,3 +1,7 @@
+body {
+  font-family: "Playfair Display", serif;
+}
+
 .toyota-background-img {
   background-image: url("../image/Car.jpg");
   height: 200px;
@@ -72,8 +76,8 @@
 .toyota-search-icon {
   cursor: pointer;
   position: relative;
-  left: -34px;
-  transform: translateY(70%);
+  left: 120px;
+  transform: translateY(-100%);
   top: -8px;
 }
 
@@ -135,4 +139,11 @@
 
   }
 
+  .toyota-search-icon {
+    cursor: pointer;
+    position: relative;
+    left: 80px;
+    transform: translateY(-100%);
+    top: -8px;
+  }
 }

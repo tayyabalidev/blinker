@@ -11,7 +11,12 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
-import downloadImage from "../image/download (1).png";
+import toyota from "../image/toyota.webp";
+import toyota1 from "../image/toyota1.webp";
+import toyota2 from "../image/toyota2.webp";
+import toyota3 from "../image/toyota3.webp";
+import toyota4 from "../image/toyota4.webp";
+import toyota5 from "../image/toyota5.webp";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useNavigate } from "react-router-dom";
 import Slider from "@mui/material/Slider";
@@ -24,9 +29,19 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
-import CssBaseline from "@mui/material/CssBaseline";
+import logo from "../image/logo.png";
+
 const drawerWidth = 240;
 const navItems = ["Contact"];
+
+const cars = [
+  { id: 1, model: "2022 Toyota Kluger", price: 3000, image: toyota },
+  { id: 2, model: "2022 Toyota Kluger", price: 3000, image: toyota1 },
+  { id: 3, model: "2023 Toyota Kluger", price: 6000, image: toyota2 },
+  { id: 4, model: "2023 Toyota Kluger", price: 6000, image: toyota3 },
+  { id: 5, model: "2024 Toyota Kluger", price: 10000, image: toyota4 },
+  { id: 6, model: "2024 Toyota Kluger", price: 10000, image: toyota5 },
+];
 
 function Toyota(props) {
   const navigate = useNavigate();
@@ -35,15 +50,25 @@ function Toyota(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography
+        variant="h6"
+        sx={{
+          my: 2,
+          fontWeight: 700,
+          fontFamily: "Arial, sans-serif",
+          fontSize: "1.5rem",
+        }}
+      >
         Blinker
       </Typography>
       <Divider />
@@ -58,8 +83,26 @@ function Toyota(props) {
       </List>
     </Box>
   );
+
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = () => {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const validModels = ["toyota", "honda", "mazda"];
+
+    if (validModels.includes(lowerCaseSearchTerm)) {
+      navigate(`/${lowerCaseSearchTerm}`);
+    } else {
+      navigate("/page404");
+    }
+  };
+
+  const filteredCars = cars.filter(
+    (car) => car.price >= value[0] && car.price <= value[1]
+  );
 
   return (
     <>
@@ -87,8 +130,16 @@ function Toyota(props) {
                 sx={{
                   display: { xs: "none", sm: "block", fontWeight: "700" },
                   color: "white",
+                  fontWeight: 700,
+                  fontFamily: "Arial, sans-serif",
+                  fontSize: "1.5rem",
                 }}
               >
+                <img
+                  src={logo}
+                  alt="logo"
+                  style={{ width: "23px", marginRight: "1px" }}
+                />
                 Blinker
               </Typography>
               <Box
@@ -152,23 +203,41 @@ function Toyota(props) {
           <Typography
             className="toyota-heading"
             variant="h3"
-            sx={{ color: "white" }}
+            sx={{
+              color: "white",
+              fontWeight: 700,
+              fontFamily: "Arial, sans-serif",
+              fontSize: "2rem",
+            }}
           >
             Browse our cars
           </Typography>
           <Typography variant="h4">
             <input
               type="text"
-              placeholder="Search by Model"
+              placeholder="Search by model"
               className="toyota-field"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <SearchIcon className="toyota-search-icon" />
+            <Typography onClick={handleSearch}>
+              <SearchIcon className="toyota-search-icon" />
+            </Typography>
           </Typography>
         </Box>
       </Box>
       <Box className="price-range">
-        <Typography mt={7}>Price range: $0 to $100,000</Typography>
-        <Box width="22%" ml={"auto"} mt={2}>
+        <Typography
+          mt={7}
+          sx={{
+            fontWeight: "700",
+            fontFamily: "Arial, sans-serif",
+            fontSize: "1.rem",
+          }}
+        >
+          Price range: $0 to $10,000
+        </Typography>
+        <Box width="17%" ml={"auto"} mt={2}>
           <Slider
             value={value}
             onChange={handleChange}
@@ -179,7 +248,7 @@ function Toyota(props) {
           />
         </Box>
         <Typography size="small" sx={{ textAlign: "end" }}>
-          ${value[0]} ${value[1]}
+          ${value[0]} - ${value[1]}
         </Typography>
       </Box>
 
@@ -191,216 +260,60 @@ function Toyota(props) {
           columnSpacing={3}
           rowSpacing={3}
         >
-          <Grid item xs={12} sm={6} md={4} mt={1}>
-            <Card>
-              <CardActionArea className="card-action">
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={downloadImage}
-                  alt="Toyota"
-                />
-                <Box className="overlay">
-                  <Typography variant="body2" color="textSecondary">
-                    More Info
-                  </Typography>
-                  <ArrowForwardIcon />
-                </Box>
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    2024 Toyota Kluger
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    POWERTRAIN Standard All-Wheel
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    SPECIAL EDITION Nightshade
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    HORSEPOWER Up to 340
-                  </Typography>
-                  <Typography variant="h6" component="div">
-                    $29,380
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} mt={1}>
-            <Card>
-              <CardActionArea className="card-action">
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={downloadImage}
-                  alt="Toyota"
-                />
-                <Box className="overlay">
-                  <Typography variant="body2" color="textSecondary">
-                    More Info
-                  </Typography>
-                  <ArrowForwardIcon />
-                </Box>
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    2024 Toyota Kluger
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    POWERTRAIN Standard All-Wheel
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    SPECIAL EDITION Nightshade
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    HORSEPOWER Up to 340
-                  </Typography>
-                  <Typography variant="h6" component="div">
-                    $29,380
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} mt={1}>
-            <Card>
-              <CardActionArea className="card-action">
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={downloadImage}
-                  alt="Toyota"
-                />
-                <Box className="overlay">
-                  <Typography variant="body2" color="textSecondary">
-                    More Info
-                  </Typography>
-                  <ArrowForwardIcon />
-                </Box>
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    2024 Toyota Kluger
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    POWERTRAIN Standard All-Wheel
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    SPECIAL EDITION Nightshade
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    HORSEPOWER Up to 340
-                  </Typography>
-                  <Typography variant="h6" component="div">
-                    $29,380
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} mt={1}>
-            <Card>
-              <CardActionArea className="card-action">
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={downloadImage}
-                  alt="Toyota"
-                />
-                <Box className="overlay">
-                  <Typography variant="body2" color="textSecondary">
-                    More Info
-                  </Typography>
-                  <ArrowForwardIcon />
-                </Box>
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    2024 Toyota Kluger
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    POWERTRAIN Standard All-Wheel
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    SPECIAL EDITION Nightshade
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    HORSEPOWER Up to 340
-                  </Typography>
-                  <Typography variant="h6" component="div">
-                    $29,380
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} mt={1}>
-            <Card>
-              <CardActionArea className="card-action">
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={downloadImage}
-                  alt="Toyota"
-                />
-                <Box className="overlay">
-                  <Typography variant="body2" color="textSecondary">
-                    More Info
-                  </Typography>
-                  <ArrowForwardIcon />
-                </Box>
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    2024 Toyota Kluger
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    POWERTRAIN Standard All-Wheel
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    SPECIAL EDITION Nightshade
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    HORSEPOWER Up to 340
-                  </Typography>
-                  <Typography variant="h6" component="div">
-                    $29,380
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} mt={1}>
-            <Card>
-              <CardActionArea className="card-action">
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={downloadImage}
-                  alt="Toyota"
-                />
-                <Box className="overlay">
-                  <Typography variant="body2" color="textSecondary">
-                    More Info
-                  </Typography>
-                  <ArrowForwardIcon />
-                </Box>
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    2024 Toyota Kluger
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    POWERTRAIN Standard All-Wheel
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    SPECIAL EDITION Nightshade
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    HORSEPOWER Up to 340
-                  </Typography>
-                  <Typography variant="h6" component="div">
-                    $29,380
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
+          {filteredCars.map((car) => (
+            <Grid item xs={12} sm={6} md={4} mt={1} key={car.id}>
+              <Card>
+                <CardActionArea className="card-action">
+                  <CardMedia
+                    component="img"
+                    height="130"
+                    image={car.image}
+                    alt={car.model}
+                  />
+                  <Box className="overlay">
+                    <Typography variant="body2" color="textSecondary">
+                      More Info
+                    </Typography>
+                    <ArrowForwardIcon />
+                  </Box>
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      component="div"
+                      sx={{
+                        fontWeight: 700,
+                        fontFamily: "Arial, sans-serif",
+                        fontSize: "1.25rem",
+                      }}
+                    >
+                      {car.model}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      POWERTRAIN Standard All-Wheel
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      SPECIAL EDITION Nightshade
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      HORSEPOWER Up to 340
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      sx={{
+                        fontWeight: 700,
+                        fontFamily: "Arial, sans-serif",
+                        fontSize: "1.25rem",
+                      }}
+                    >
+                      ${car.price}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </>

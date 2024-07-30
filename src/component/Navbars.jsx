@@ -1,4 +1,5 @@
 import * as React from "react";
+import "./Navbars.css";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,6 +15,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import logo from "../image/logo.png";
 
 const drawerWidth = 240;
 const navItems = ["Home", "Find your car"];
@@ -71,9 +73,18 @@ function Navbars(props) {
             ml={5}
             sx={{
               flexGrow: 1,
-              display: { xs: "none", sm: "block", fontWeight: "700" },
+              display: "flex",
+              alignItems: "center",
+              fontWeight: 700,
+              fontFamily: "Arial, sans-serif", // Change this to your desired font
+              fontSize: "1.5rem", // Adjust the font size as needed
             }}
           >
+            <img
+              src={logo}
+              alt="logo"
+              style={{ width: "30px", marginRight: "1px" }}
+            />
             Blinker
           </Typography>
           <Box mr={5} sx={{ display: { xs: "none", sm: "block" } }}>

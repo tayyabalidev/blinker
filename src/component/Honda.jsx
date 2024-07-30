@@ -1,13 +1,24 @@
 import React from "react";
-import "./Page404.css";
-import { Button } from "@mui/material";
+import "./Honda.css";
+import { Button, Container } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
-import download from "../image/download (2).svg";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import { CardActionArea } from "@mui/material";
+import honda from "../image/honda.png";
+import honda1 from "../image/honda1.png";
+import honda2 from "../image/honda2.png";
+import honda3 from "../image/honda3.webp";
+import honda4 from "../image/honda4.webp";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useNavigate } from "react-router-dom";
+import Slider from "@mui/material/Slider";
 import { useState } from "react";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
@@ -22,17 +33,41 @@ import logo from "../image/logo.png";
 const drawerWidth = 240;
 const navItems = ["Contact"];
 
-function Page404(props) {
+const cars = [
+  { id: 1, model: "2022 Honda", price: 3000, image: honda },
+  { id: 2, model: "2022 Honda", price: 3000, image: honda1 },
+  { id: 3, model: "2023 Honda", price: 6000, image: honda2 },
+  { id: 4, model: "2023 Honda", price: 6000, image: honda3 },
+  { id: 5, model: "2024 Honda", price: 10000, image: honda4 },
+  { id: 6, model: "2024 Honda", price: 10000, image: honda },
+];
+
+function Honda(props) {
   const navigate = useNavigate();
+  const [value, setValue] = useState([0, 10000]);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography
+        variant="h6"
+        sx={{
+          my: 2,
+          fontWeight: 700,
+          fontFamily: "Arial, sans-serif",
+          fontSize: "1.5rem",
+        }}
+      >
         Blinker
       </Typography>
       <Divider />
@@ -47,6 +82,7 @@ function Page404(props) {
       </List>
     </Box>
   );
+
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -62,9 +98,14 @@ function Page404(props) {
       navigate("/page404");
     }
   };
+
+  const filteredCars = cars.filter(
+    (car) => car.price >= value[0] && car.price <= value[1]
+  );
+
   return (
     <>
-      <Box className="toyota-background-img">
+      <Box className="honda-background-img">
         <Box sx={{ display: "flex", color: "black" }}>
           <AppBar
             component="nav"
@@ -88,16 +129,15 @@ function Page404(props) {
                 sx={{
                   display: { xs: "none", sm: "block", fontWeight: "700" },
                   color: "white",
-
-                  fontWeight: "700",
+                  fontWeight: 700,
                   fontFamily: "Arial, sans-serif",
-                  fontSize: "1.25rem",
+                  fontSize: "1.5rem",
                 }}
               >
                 <img
                   src={logo}
                   alt="logo"
-                  style={{ width: "21px", marginRight: "1px" }}
+                  style={{ width: "23px", marginRight: "1px" }}
                 />
                 Blinker
               </Typography>
@@ -110,12 +150,7 @@ function Page404(props) {
                 <Typography
                   onClick={() => navigate("/")}
                   className="curoser-pointer"
-                  sx={{
-                    color: "white",
-                    fontWeight: "700",
-                    fontFamily: "Arial, sans-serif",
-                    fontSize: "1.rem",
-                  }}
+                  sx={{ fontWeight: 600, color: "white" }}
                 >
                   Home
                 </Typography>
@@ -123,12 +158,7 @@ function Page404(props) {
               <Box mr={5}>
                 <Typography
                   className="curoser-pointer"
-                  sx={{
-                    color: "white",
-                    fontWeight: "700",
-                    fontFamily: "Arial, sans-serif",
-                    fontSize: "1.rem",
-                  }}
+                  sx={{ fontWeight: 600, color: "white" }}
                 >
                   Find your car
                 </Typography>
@@ -170,13 +200,13 @@ function Page404(props) {
         </Box>
         <Box sx={{ marginTop: "20px", textAlign: "center" }}>
           <Typography
-            className="toyota-heading"
+            className="honda-heading"
             variant="h3"
             sx={{
               color: "white",
-              fontWeight: "700",
+              fontWeight: 700,
               fontFamily: "Arial, sans-serif",
-              fontSize: "2.25rem",
+              fontSize: "2rem",
             }}
           >
             Browse our cars
@@ -185,66 +215,98 @@ function Page404(props) {
             <input
               type="text"
               placeholder="Search by model"
-              className="page404-field"
+              className="honda-field"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <Typography onClick={handleSearch}>
-              <SearchIcon className="page404-search-icon" />
+              <SearchIcon className="honda-search-icon" />
             </Typography>
           </Typography>
         </Box>
       </Box>
-
-      <Typography
-        mr={20}
-        mt={2}
-        className="price-range"
-        sx={{
-          fontWeight: "700",
-          fontFamily: "Arial, sans-serif",
-          fontSize: "1.25rem",
-        }}
-      >
-        Price range: $0 to $100,000
-      </Typography>
-
-      <Box className="page404-img">
-        <img src={download} alt="" />
-      </Box>
-      <Box className="page404-content">
-        <Typography
-          className="page404-not"
-          variant="h4"
-          sx={{
-            fontWeight: 600,
-
-            fontWeight: "700",
-            fontFamily: "Arial, sans-serif",
-            fontSize: "2.25rem",
-          }}
-        >
-          Could not find any matches <br />
-          related to your search.
+      <Box className="price-range">
+        <Typography mt={7}>Price range: $0 to $10,000</Typography>
+        <Box width="16%" ml={"auto"} mt={2}>
+          <Slider
+            value={value}
+            onChange={handleChange}
+            valueLabelDisplay="auto"
+            min={0}
+            max={10000}
+            step={100}
+          />
+        </Box>
+        <Typography size="small" sx={{ textAlign: "end" }}>
+          ${value[0]} - ${value[1]}
         </Typography>
-        <Typography className="page404-not-1" sx={{ fontWeight: 600 }}>
-          Please change the name or correct search
-        </Typography>
-
-        <button
-          className="btn"
-          style={{
-            color: "white",
-            fontWeight: "700",
-            fontFamily: "Arial, sans-serif",
-            fontSize: "1.25rem",
-          }}
-        >
-          Reset Page
-        </button>
       </Box>
+
+      <Container>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          columnSpacing={3}
+          rowSpacing={3}
+        >
+          {filteredCars.map((car) => (
+            <Grid item xs={12} sm={6} md={4} mt={1} key={car.id}>
+              <Card>
+                <CardActionArea className="card-action">
+                  <CardMedia
+                    component="img"
+                    height="185"
+                    image={car.image}
+                    alt={car.model}
+                  />
+                  <Box className="overlay">
+                    <Typography variant="body2" color="textSecondary">
+                      More Info
+                    </Typography>
+                    <ArrowForwardIcon />
+                  </Box>
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      component="div"
+                      sx={{
+                        fontWeight: 700,
+                        fontFamily: "Arial, sans-serif",
+                        fontSize: "1.25rem",
+                      }}
+                    >
+                      {car.model}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      POWERTRAIN Standard All-Wheel
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      SPECIAL EDITION Nightshade
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      HORSEPOWER Up to 340
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      sx={{
+                        fontWeight: 700,
+                        fontFamily: "Arial, sans-serif",
+                      }}
+                    >
+                      ${car.price}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
     </>
   );
 }
 
-export default Page404;
+export default Honda;

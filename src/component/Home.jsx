@@ -12,8 +12,11 @@ function Home() {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    if (searchTerm.toLowerCase() === "toyota") {
-      navigate("/toyota");
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const validModels = ["toyota", "honda", "mazda"];
+
+    if (validModels.includes(lowerCaseSearchTerm)) {
+      navigate(`/${lowerCaseSearchTerm}`);
     } else {
       navigate("/page404");
     }
@@ -39,19 +42,19 @@ function Home() {
         <Typography mt={5} sx={{ display: "flex", justifyContent: "center" }}>
           <input
             type="text"
-            placeholder="Search by Model"
+            placeholder="Search by model"
             className="text-field"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <button onClick={handleSearch}>
-            <SearchIcon />
+            <SearchIcon className="home-search-icon" />
           </button>
         </Typography>
       </Box>
 
       <Box className="home-img">
-        <img src={city} alt="" />
+        <img src={city} alt="City" />
       </Box>
     </>
   );

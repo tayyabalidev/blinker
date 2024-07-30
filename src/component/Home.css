@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+@import url('https: //fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+body {
+    font-family: "Lora", serif;
+}
+
+
 .home-content {
     padding-top: 30px;
     text-align: center;
@@ -19,6 +27,10 @@ button {
     color: white;
     margin-left: 10px;
     cursor: pointer;
+}
+
+.home-search-icon {
+    padding-top: 5px;
 }
 
 .home-text {
